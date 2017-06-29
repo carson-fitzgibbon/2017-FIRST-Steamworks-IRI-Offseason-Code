@@ -13,16 +13,18 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class MotionMagic extends Command {
 
-	private double _set;
+	private double _setleft;
+	private double _setright;
 	
-    public MotionMagic(double set) {
+    public MotionMagic(double setleft, double setright) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.drivetrain);
     	this.setTimeout(3);
-    	_set = set;
+    	_setleft = setleft;
+    	_setright = setright
     }
-
+    
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.drivetrain.resetEncoders();
@@ -74,14 +76,14 @@ public class MotionMagic extends Command {
 		Robot.drivetrain.frontRight.setMotionMagicAcceleration(150);
 		Robot.drivetrain.frontLeft.changeControlMode(TalonControlMode.MotionMagic);
 		Robot.drivetrain.frontRight.changeControlMode(TalonControlMode.MotionMagic);
-		Robot.drivetrain.frontLeft.set(_set); 
-		Robot.drivetrain.frontRight.set(_set); 
+		Robot.drivetrain.frontLeft.set(_setleft); 
+		Robot.drivetrain.frontRight.set(_setright); 
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.frontLeft.set(_set); 
-		Robot.drivetrain.frontRight.set(_set); 
+    	Robot.drivetrain.frontLeft.set(_setleft); 
+		Robot.drivetrain.frontRight.set(_setright); 
     }
 
     // Make this return true when this Command no longer needs to run execute()

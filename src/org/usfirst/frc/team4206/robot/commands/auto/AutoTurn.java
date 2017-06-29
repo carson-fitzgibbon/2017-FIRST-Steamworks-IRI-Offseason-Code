@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Turns using gyro
+ * Thanks to team 2438 for emergency code
+ * https://github.com/Iobotics/
  */
 public class AutoTurn extends Command implements PIDOutput {
 

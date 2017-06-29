@@ -25,7 +25,7 @@ public class AutoCenterPeg extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	addSequential(new MotionMagic(-6));
+    	addSequential(new MotionMagic(-6, -6));
     	addSequential(new MagicButton());
     }
 }

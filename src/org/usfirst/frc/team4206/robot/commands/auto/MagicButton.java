@@ -2,6 +2,7 @@ package org.usfirst.frc.team4206.robot.commands.auto;
 
 import org.usfirst.frc.team4206.robot.Robot;
 import org.usfirst.frc.team4206.robot.commands.ActiveArmDown;
+import org.usfirst.frc.team4206.robot.commands.ActiveArmUp;
 import org.usfirst.frc.team4206.robot.commands.ExhaustRollers;
 import org.usfirst.frc.team4206.robot.commands.InaccurateDrive;
 
@@ -34,9 +35,10 @@ public class MagicButton extends CommandGroup {
     	requires(Robot.rollers);
 
     	System.out.println("Magic Button Enabled");
-    	addParallel(new InaccurateDrive(0.2, -0.5));
-    	addParallel(new ActiveArmDown());
+    	addParallel(new MotionMagic(1, 1));
     	addParallel(new ExhaustRollers());
+    	addSequential(new ActiveArmDown(), 1);
+    	addSequential(new ActiveArmUp());
 
 
     

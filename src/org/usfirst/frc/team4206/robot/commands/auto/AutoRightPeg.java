@@ -24,9 +24,9 @@ public class AutoRightPeg extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new MotionMagic(-5));
+    	addSequential(new MotionMagic(-5, -5));
     	addSequential(new AutoTurn(45));
-    	addSequential(new MotionMagic(-3));
+    	addSequential(new MotionMagic(-3, -3));
     	addSequential(new MagicButton());
     }
 }
