@@ -22,7 +22,7 @@ public class MotionMagic extends Command {
     	requires(Robot.drivetrain);
     	this.setTimeout(3);
     	_setleft = setleft;
-    	_setright = setright
+    	_setright = setright;
     }
     
     // Called just before this Command runs the first time
