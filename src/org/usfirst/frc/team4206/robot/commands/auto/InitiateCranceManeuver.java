@@ -13,7 +13,7 @@ public class InitiateCranceManeuver extends CommandGroup {
     	requires(Robot.drivetrain);
     	requires(Robot.navigationsensor);
     	
-    	addSequential(new MotionMagic(2));
+    	addSequential(new MotionMagic(2, 2));
     	addSequential(new AutoTurn(30));
     	
     	

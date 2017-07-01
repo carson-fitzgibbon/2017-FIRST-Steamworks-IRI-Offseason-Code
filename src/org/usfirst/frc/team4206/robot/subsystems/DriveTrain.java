@@ -108,7 +108,7 @@ public class DriveTrain extends Subsystem {
 	
 	
 	public double getEncoderValue(CANTalon encoder) {
-		return encoder.getPosition()
+		return encoder.getPosition();
 	}
 	
 	public void resetEncoders() {

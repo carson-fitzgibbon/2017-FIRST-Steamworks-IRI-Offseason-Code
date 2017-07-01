@@ -17,7 +17,7 @@ public class Rollers extends Subsystem {
 		activeRoller.set(0.6);
 	}
 
-	public void exhausr() {
+	public void exhaust() {
 		activeRoller.set(-0.6);
 	}
 	

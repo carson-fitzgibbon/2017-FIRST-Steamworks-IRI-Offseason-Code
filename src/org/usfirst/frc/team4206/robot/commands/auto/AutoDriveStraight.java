@@ -1,3 +1,4 @@
+
 package org.usfirst.frc.team4206.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -22,7 +23,7 @@ public class AutoDriveStraight extends Command implements PIDOutput, PIDSource {
 	private final double  _distance;
 	private PIDController _pid;
 	
-	private static final double kP = 0.021;
+	private static final double kP = 0.2;
 	private static final double kI = 0.0;
 	private static final double kD = 0;
 	
@@ -80,14 +81,13 @@ public class AutoDriveStraight extends Command implements PIDOutput, PIDSource {
     	double rightPower = leftPower + gyro; 
     	leftPower = leftPower - gyro;
     	
-    	Robot.drivetrain.setTank(leftPower, rightPower);
+    	Robot.drivetrain.ArcadeDrive(leftPower, kTurn*Robot.navigationsensor.getGyro());
     }
     
     // Called just before this Command runs the first time
     protected void initialize() {
     	SmartDashboard.putData("DrivePID", _pid);
     	Robot.drivetrain.resetEncoders();
-    	Robot.navigationsensor.zeroGyro();
     	_pid.setSetpoint(_distance);
     	_pid.enable();
     }

@@ -3,8 +3,12 @@ package org.usfirst.frc.team4206.robot;
 
 import org.usfirst.frc.team4206.robot.commands.ActiveArmDown;
 import org.usfirst.frc.team4206.robot.commands.ActiveArmUp;
+import org.usfirst.frc.team4206.robot.commands.IntakeGear;
 import org.usfirst.frc.team4206.robot.commands.auto.AutoCenterPeg;
+import org.usfirst.frc.team4206.robot.commands.auto.AutoLeftPeg;
+import org.usfirst.frc.team4206.robot.commands.auto.AutoTurn;
 import org.usfirst.frc.team4206.robot.commands.auto.MagicButton;
+import org.usfirst.frc.team4206.robot.commands.auto.MotionMagic;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -39,10 +43,12 @@ public class OI {
 	
 	public OI() {
 		
-		A.whenPressed(new ActiveArmDown());
+		A.whenPressed(new AutoTurn(0));
 		Y.whenPressed(new ActiveArmUp());
 		B.whenPressed(new AutoCenterPeg());
 		X.whenPressed(new MagicButton());
+		RB.whenPressed(new IntakeGear());
+		LB.whenPressed(new AutoCenterPeg());
 		
 	}
 	

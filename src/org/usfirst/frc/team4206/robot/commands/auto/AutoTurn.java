@@ -54,7 +54,7 @@ public class AutoTurn extends Command implements PIDOutput {
 		});*/
     	_pid.setAbsoluteTolerance(2.0);
     	_pid.setToleranceBuffer(5);
-    	_pid.setOutputRange(-0.5, 0.5);
+    	_pid.setOutputRange(-0.7, 0.7);
     	this.setTimeout(10);
     }
 
@@ -65,14 +65,11 @@ public class AutoTurn extends Command implements PIDOutput {
     	if(power < 0 && power > 0.1) power -= 0.1;
     	
     	SmartDashboard.putNumber("drive-auto-command", power);
-    	Robot.drivetrain.setTank(power, -power);
+    	Robot.drivetrain.setTank(power, power);
     }
     
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(_resetGyro) {
-    		Robot.navigationsensor.zeroGyro();
-    	}
     	_pid.setSetpoint(_degrees);
     	_pid.enable();
     	_onTargetTime = Double.MAX_VALUE;

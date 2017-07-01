@@ -33,11 +33,11 @@ public class NavigationSensor extends Subsystem implements PIDSource {
 	}
 	
 	public void zeroGyro() {
-		_ahrs.zeroYaw();
+		_ahrs.reset();
 	}
 	
 	public double getGyro() {
-		return _ahrs.getYaw();
+		return _ahrs.getAngle();
 	}
 	
 	public double pidGet() {

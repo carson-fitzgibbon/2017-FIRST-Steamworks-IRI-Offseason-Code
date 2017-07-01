@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team4206.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -35,6 +37,7 @@ public class Robot extends IterativeRobot {
 	public static final NavigationSensor navigationsensor = new NavigationSensor();
 	
 	
+	
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -50,6 +53,11 @@ public class Robot extends IterativeRobot {
 		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setResolution(480, 320);
+        
+        navigationsensor.init();
 	}
 
 	/**

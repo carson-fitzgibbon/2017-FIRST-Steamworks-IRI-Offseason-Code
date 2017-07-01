@@ -49,8 +49,8 @@ public class MotionMagic extends Command {
 		//Robot.drivetrain.frontLeft.setI(0);
 		//Robot.drivetrain.frontLeft.setD(0);
 		/* set acceleration and vcruise velocity - see documentation */
-		Robot.drivetrain.frontLeft.setMotionMagicCruiseVelocity(400);
-		Robot.drivetrain.frontLeft.setMotionMagicAcceleration(152);
+		Robot.drivetrain.frontLeft.setMotionMagicCruiseVelocity(410);
+		Robot.drivetrain.frontLeft.setMotionMagicAcceleration(154);
 		
 		Robot.drivetrain.rearRight.changeControlMode(CANTalon.TalonControlMode.Follower);
 		Robot.drivetrain.rearRight.set(Robot.drivetrain.frontRight.getDeviceID());
