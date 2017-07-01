@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4206.robot.commands.auto;
 
 import org.usfirst.frc.team4206.robot.commands.ResetGyro;
+import org.usfirst.frc.team4206.robot.commands.magicbuttons.MagicButton;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

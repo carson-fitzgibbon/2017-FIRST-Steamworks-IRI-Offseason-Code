@@ -1,20 +1,17 @@
-package org.usfirst.frc.team4206.robot.commands.auto;
+package org.usfirst.frc.team4206.robot.commands.magicbuttons;
 
-import org.usfirst.frc.team4206.robot.Robot;
 import org.usfirst.frc.team4206.robot.commands.ActiveArmDown;
 import org.usfirst.frc.team4206.robot.commands.ActiveArmUp;
-import org.usfirst.frc.team4206.robot.commands.ExhaustRollers;
-import org.usfirst.frc.team4206.robot.commands.InaccurateDrive;
-import org.usfirst.frc.team4206.robot.commands.StopRollers;
+import org.usfirst.frc.team4206.robot.commands.IntakeRollers;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class MagicButton extends CommandGroup {
+public class IntakeGear extends CommandGroup {
 
-    public MagicButton() {
+    public IntakeGear() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -31,20 +28,8 @@ public class MagicButton extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	requires(Robot.drivetrain);
-    	requires(Robot.activegearfeeder);
-    	requires(Robot.rollers);
-
-    	addParallel(new ExhaustRollers(), 1.5);
-    	addParallel(new MotionMagic(1, 1));
-    	addSequential(new ActiveArmDown(), 2);
-    	addSequential(new StopRollers());
-    	addSequential(new ActiveArmUp(), 1.25);
-
-
-
-    
-
-
+    	addParallel(new ActiveArmDown());
+    	addSequential(new IntakeRollers());
+    	addSequential(new ActiveArmUp());
     }
 }
