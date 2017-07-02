@@ -11,8 +11,8 @@ public class ActiveGearFeeder extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	CANTalon activeMaster = new CANTalon(5);
-	CANTalon activeSlave = new CANTalon(6);
+	public CANTalon activeMaster = new CANTalon(5);
+	public CANTalon activeSlave = new CANTalon(6);
 
 	private boolean isUp = true;
 	

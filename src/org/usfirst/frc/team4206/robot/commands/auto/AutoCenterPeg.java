@@ -30,7 +30,7 @@ public class AutoCenterPeg extends CommandGroup {
     	
     	//addSequential(new MotionMagic(-4.6, -4.6));
     	addSequential(new ResetGyro());
-    	addSequential(new JackDriveStraight(-0.5, 2.75));
+    	addSequential(new AutoDriveStraight(-0.5, 2.75));
     	addSequential(new MagicButton());
     }
 }
