@@ -15,7 +15,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class MagicButton extends CommandGroup {
 
-    public MagicButton() {
+	private double _distance;
+	
+	public MagicButton() {
+		this._distance= 1;
+	}
+	
+    public MagicButton(double distance) {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -35,9 +41,11 @@ public class MagicButton extends CommandGroup {
     	requires(Robot.drivetrain);
     	requires(Robot.activegearfeeder);
     	requires(Robot.rollers);
+    	
+    	_distance = distance;
 
     	addParallel(new ExhaustRollers(), 1.5);
-    	addParallel(new MotionMagic(1, 1));
+    	addParallel(new MotionMagic(_distance, _distance, 1.5));
     	addSequential(new ActiveArmDown(), 2);
     	addSequential(new StopRollers());
     	addSequential(new ActiveArmUp(), 1.25);

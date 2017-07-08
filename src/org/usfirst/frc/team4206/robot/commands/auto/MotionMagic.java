@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4206.robot.commands.auto;
 
 import org.usfirst.frc.team4206.robot.Robot;
+import org.usfirst.frc.team4206.robot.subsystems.DriveTrain;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
@@ -15,14 +16,32 @@ public class MotionMagic extends Command {
 
 	private double _setleft;
 	private double _setright;
+	private double _setleftvelocity;
+	private double _setrightvelocity;
+	private double _setleftacc;
+	private double _setrightacc;
 	
-    public MotionMagic(double setleft, double setright) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+	public MotionMagic(double setleft, double setright, double timeout) {
+		this(setleft, setright, 410, 400, 154, 150, timeout);
+	}
+	
+	public MotionMagic(double setleft, double setright, double leftvel, double rightvel, double timeout) {
+		this(setleft, setright, leftvel, rightvel, 154, 150, timeout);
+	}
+	
+	
+    public MotionMagic(double setleft, double setright, double leftvel, double rightvel, double leftacc, double rightacc, double timeout) {
+
+    	
     	requires(Robot.drivetrain);
-    	this.setTimeout(3);
+    	this.setTimeout(timeout);
     	_setleft = setleft;
     	_setright = setright;
+    	_setleftvelocity = leftvel;
+    	_setrightvelocity = rightvel;
+    	_setrightacc = rightacc;
+    	_setleftacc = leftacc;
+    	
     }
     
     // Called just before this Command runs the first time
@@ -49,8 +68,8 @@ public class MotionMagic extends Command {
 		//Robot.drivetrain.frontLeft.setI(0);
 		//Robot.drivetrain.frontLeft.setD(0);
 		/* set acceleration and vcruise velocity - see documentation */
-		Robot.drivetrain.frontLeft.setMotionMagicCruiseVelocity(410);
-		Robot.drivetrain.frontLeft.setMotionMagicAcceleration(154);
+		Robot.drivetrain.frontLeft.setMotionMagicCruiseVelocity(_setleftvelocity); //default = 410
+		Robot.drivetrain.frontLeft.setMotionMagicAcceleration(_setleftacc); //default = 154
 		
 		Robot.drivetrain.rearRight.changeControlMode(CANTalon.TalonControlMode.Follower);
 		Robot.drivetrain.rearRight.set(Robot.drivetrain.frontRight.getDeviceID());
@@ -72,8 +91,8 @@ public class MotionMagic extends Command {
 		//Robot.drivetrain.frontRight.setI(0);
 		//Robot.drivetrain.frontRight.setD(0);
 		/* set acceleration and vcruise velocity - see documentation */
-		Robot.drivetrain.frontRight.setMotionMagicCruiseVelocity(400);
-		Robot.drivetrain.frontRight.setMotionMagicAcceleration(150);
+		Robot.drivetrain.frontRight.setMotionMagicCruiseVelocity(_setrightvelocity); //default = 400
+		Robot.drivetrain.frontRight.setMotionMagicAcceleration(_setrightacc);//default = 150
 		Robot.drivetrain.frontLeft.changeControlMode(TalonControlMode.MotionMagic);
 		Robot.drivetrain.frontRight.changeControlMode(TalonControlMode.MotionMagic);
 		Robot.drivetrain.frontLeft.set(_setleft); 
@@ -88,12 +107,16 @@ public class MotionMagic extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if(this.isTimedOut()) return true;
+        if(Robot.drivetrain.getMotionMagicError(Robot.drivetrain.frontRight) < 8 || this.isTimedOut() ) return true;
         else return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	
+    	System.out.println("Ending Error");
+    	System.out.println(Robot.drivetrain.getMotionMagicError(Robot.drivetrain.frontRight));
+    	
     	Robot.drivetrain.frontRight.changeControlMode(TalonControlMode.PercentVbus);
     	Robot.drivetrain.frontLeft.changeControlMode(TalonControlMode.PercentVbus);
     	Robot.drivetrain.rearRight.changeControlMode(TalonControlMode.PercentVbus);

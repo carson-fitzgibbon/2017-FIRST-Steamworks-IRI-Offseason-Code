@@ -1,6 +1,8 @@
-package org.usfirst.frc.team4206.robot.commands.auto;
+package org.usfirst.frc.team4206.robot.commands.visionauto;
 
 import org.usfirst.frc.team4206.robot.commands.ResetGyro;
+import org.usfirst.frc.team4206.robot.commands.auto.AlignWithPegWhileDriving;
+import org.usfirst.frc.team4206.robot.commands.auto.AutoDriveStraight;
 import org.usfirst.frc.team4206.robot.commands.magicbuttons.MagicButton;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -8,9 +10,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoCenterPeg extends CommandGroup {
+public class AutoCenterPegWithVision extends CommandGroup {
 
-    public AutoCenterPeg() {
+    public AutoCenterPegWithVision() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -30,7 +32,8 @@ public class AutoCenterPeg extends CommandGroup {
     	
     	//addSequential(new MotionMagic(-4.6, -4.6));
     	addSequential(new ResetGyro());
-    	addSequential(new AutoDriveStraight(-0.5, 2.75));
+    	addSequential(new AutoDriveStraight(-0.5, 1.5));
+    	addSequential(new AlignWithPegWhileDriving(0.4));
     	addSequential(new MagicButton());
     }
 }

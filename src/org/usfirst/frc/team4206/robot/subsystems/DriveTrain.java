@@ -100,7 +100,14 @@ public class DriveTrain extends Subsystem {
 		sb.append(errorRight);
 	}
 	
-
+	public double getVelocity(CANTalon wheel) {
+		return wheel.getEncVelocity();
+	}
+	
+	public double getMotionMagicError(CANTalon wheel) {
+		double MMError = wheel.getClosedLoopError();
+		return Math.abs(MMError);
+	}
 	
 	public void ArcadeDrive(double x, double y) {
 		drive.arcadeDrive(y, x);

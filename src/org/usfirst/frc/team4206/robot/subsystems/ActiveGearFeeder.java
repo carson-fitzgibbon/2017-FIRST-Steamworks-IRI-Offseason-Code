@@ -11,8 +11,8 @@ public class ActiveGearFeeder extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	CANTalon activeMaster = new CANTalon(5);
-	CANTalon activeSlave = new CANTalon(6);
+	public CANTalon activeMaster = new CANTalon(5);
+	public CANTalon activeSlave = new CANTalon(6);
 
 	private boolean isUp = true;
 	
@@ -36,8 +36,8 @@ public class ActiveGearFeeder extends Subsystem {
 		activeMaster.setF(0.006);
 		
 		//KEEP THESE REALLY LOW
-		activeMaster.setMotionMagicAcceleration(45);
-		activeMaster.setMotionMagicCruiseVelocity(35);
+		activeMaster.setMotionMagicAcceleration(50);
+		activeMaster.setMotionMagicCruiseVelocity(50);
 		//KEEP THESE REALLY LOW
 		
 		activeMaster.set(-0.04);

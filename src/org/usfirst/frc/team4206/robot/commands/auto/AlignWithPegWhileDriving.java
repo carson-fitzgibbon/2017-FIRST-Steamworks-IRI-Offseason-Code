@@ -1,39 +1,43 @@
 package org.usfirst.frc.team4206.robot.commands.auto;
 
 import org.usfirst.frc.team4206.robot.Robot;
+import org.usfirst.frc.team4206.robot.VisionProcessor.TargetType;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class AutoDriveStraight extends Command {
-	
-	private double _power;
+public class AlignWithPegWhileDriving extends Command {
+
 	private double kP;
-
-    public AutoDriveStraight(double power, double seconds) {
+	private double pegAngle;
+	private double powerFoward;
+	
+    public AlignWithPegWhileDriving(double power) {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     	requires(Robot.drivetrain);
-    	requires(Robot.navigationsensor);
-    	this.setTimeout(seconds);
-
-    	power = _power;
+    	
     	kP = 0.02;
+    	pegAngle = Robot.visionprocessor.getAngleFromCenter(TargetType.GEAR_VISION);
+    	
+    	powerFoward = power;
     	
     }
+
+    // Called just before this Command runs the first time
     protected void initialize() {
-    	System.out.println("Driving");
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.ArcadeDrive(0.5, Robot.navigationsensor.getGyro()*kP);
+    	Robot.drivetrain.ArcadeDrive(pegAngle*kP, powerFoward);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if (this.isTimedOut()) return true;
-        else return false;
+        return Math.abs(Robot.visionprocessor.getAdjustedAverageDistanceToGearTargetsHorizontal()) > 0.0;
     }
 
     // Called once after isFinished returns true
@@ -44,5 +48,6 @@ public class AutoDriveStraight extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	this.end();
     }
 }

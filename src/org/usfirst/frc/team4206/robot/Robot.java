@@ -15,6 +15,7 @@ import org.usfirst.frc.team4206.robot.subsystems.ActiveGearFeeder;
 import org.usfirst.frc.team4206.robot.subsystems.Climber;
 import org.usfirst.frc.team4206.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4206.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team4206.robot.subsystems.LEDS;
 import org.usfirst.frc.team4206.robot.subsystems.NavigationSensor;
 import org.usfirst.frc.team4206.robot.subsystems.Pneumatics;
 import org.usfirst.frc.team4206.robot.subsystems.Rollers;
@@ -35,13 +36,20 @@ public class Robot extends IterativeRobot {
 	public static final ActiveGearFeeder activegearfeeder = new ActiveGearFeeder();
 	public static final Rollers rollers = new Rollers();
 	public static final NavigationSensor navigationsensor = new NavigationSensor();
+	public static final SmartDashboardLayout smartdashboard = new SmartDashboardLayout();
+	public static final VisionProcessor visionprocessor = new VisionProcessor();
+	public static final LEDS leds = new LEDS();
 	
-	
-	
+
 	public static OI oi;
 
-	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	Command AutoCenterPeg;
+	Command AutoLeftPeg;
+	Command AutoRightPeg;
+	Command AutoCenterPegWithVision;
+	Command AutoLeftPegWithVision;
+	Command AutoRightPegWithVision;
+
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -50,9 +58,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
 		
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
         camera.setResolution(480, 320);
@@ -88,18 +93,13 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
-			autonomousCommand.start();
+		if(Robot.oi.auto.getRawButton(1)) AutoRightPeg.start();
+		
+		else if (Robot.oi.auto.getRawButton(2)) AutoLeftPeg.start();
+		
+		else if (Robot.oi.auto.getRawButton(1)) AutoCenterPeg.start();
+		
+		else AutoCenterPeg.start();
 	}
 
 	/**
@@ -126,6 +126,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		smartdashboard.initSmartDashboard();
 	}
 
 	/**

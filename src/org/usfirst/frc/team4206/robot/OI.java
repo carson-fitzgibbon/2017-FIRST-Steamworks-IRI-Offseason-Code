@@ -3,6 +3,9 @@ package org.usfirst.frc.team4206.robot;
 
 import org.usfirst.frc.team4206.robot.commands.ActiveArmDown;
 import org.usfirst.frc.team4206.robot.commands.ActiveArmUp;
+import org.usfirst.frc.team4206.robot.commands.EndGameClimb;
+import org.usfirst.frc.team4206.robot.commands.StopRollers;
+import org.usfirst.frc.team4206.robot.commands.ToggleFeeder;
 import org.usfirst.frc.team4206.robot.commands.auto.AutoCenterPeg;
 import org.usfirst.frc.team4206.robot.commands.auto.AutoLeftPeg;
 import org.usfirst.frc.team4206.robot.commands.auto.AutoTurn;
@@ -33,7 +36,7 @@ public class OI {
 	Button Y = new JoystickButton(driver, 4);
 	Button LB = new JoystickButton(driver, 5);
 	Button RB = new JoystickButton(driver, 6);
-	Button Start = new JoystickButton(driver, 7);
+	Button Start = new JoystickButton(driver, 7);// DO NOT USE BECUASE IT IS USED IN PLAYERDRIVE COMMAND
 	Button Select = new JoystickButton(driver, 8);
 	
 	
@@ -43,12 +46,11 @@ public class OI {
 	
 	public OI() {
 		
-		A.whenPressed(new AutoTurn(0));
-		Y.whenPressed(new ActiveArmUp());
-		B.whenPressed(new AutoCenterPeg());
-		X.whenPressed(new MagicButton());
-		RB.whenPressed(new IntakeGear());
-		LB.whenPressed(new AutoCenterPeg());
+		A.whileHeld(new EndGameClimb());
+		B.whileHeld(new MagicButton());
+		RB.whenPressed(new ToggleFeeder());
+		Select.whenPressed(new StopRollers());
+		
 		
 	}
 	
