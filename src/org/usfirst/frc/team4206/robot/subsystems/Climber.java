@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4206.robot.subsystems;
 
+import org.usfirst.frc.team4206.robot.commands.EndGameClimb;
+
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -11,8 +13,8 @@ public class Climber extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	public CANTalon climberMaster = new CANTalon(5);
-	public CANTalon climberSlave = new CANTalon(6);
+	public CANTalon climberMaster = new CANTalon(3);
+	public CANTalon climberSlave = new CANTalon(4);
 	
 	public Climber() {
 		climberSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
@@ -20,16 +22,17 @@ public class Climber extends Subsystem {
 	}
 	
 	public void climbUpJoystick(double power) {
-		climberMaster.set(power);
+		climberMaster.set(-power);
+		climberSlave.set(climberMaster.getDeviceID());
 	}
 	
 	public void climbUpButton() {
-		climberMaster.set(1);
+		climberMaster.set(-1);
+		climberSlave.set(climberMaster.getDeviceID());
 	}
 
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+    	setDefaultCommand(new EndGameClimb());
     }
 }
 

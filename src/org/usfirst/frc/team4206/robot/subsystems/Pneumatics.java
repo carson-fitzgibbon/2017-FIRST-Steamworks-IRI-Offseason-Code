@@ -11,12 +11,12 @@ public class Pneumatics extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	DoubleSolenoid passiveGearPiston = new DoubleSolenoid(4,5);
+	//Compressor compressor = new Compressor();
 	
 	public void toggle() {
 		if (passiveGearPiston.get() == DoubleSolenoid.Value.kForward) passiveGearPiston.set(DoubleSolenoid.Value.kReverse);
 		else passiveGearPiston.set(DoubleSolenoid.Value.kForward);
 	}
-	
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

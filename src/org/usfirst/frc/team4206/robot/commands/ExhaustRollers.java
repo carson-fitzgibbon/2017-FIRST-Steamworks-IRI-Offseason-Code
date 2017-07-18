@@ -18,6 +18,7 @@ public class ExhaustRollers extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	System.out.println("Exh Rollers");
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -28,7 +29,7 @@ public class ExhaustRollers extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         if (this.isTimedOut()) return true;
-        else return false;
+        return false;
     }
 
     // Called once after isFinished returns true

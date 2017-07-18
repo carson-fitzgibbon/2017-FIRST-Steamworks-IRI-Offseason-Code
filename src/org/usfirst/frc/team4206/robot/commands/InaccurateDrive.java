@@ -4,9 +4,6 @@ import org.usfirst.frc.team4206.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
 public class InaccurateDrive extends Command {
 	
 	private double y;
@@ -33,7 +30,7 @@ public class InaccurateDrive extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         if (this.isTimedOut()) return true;
-        else return false;
+        return false;
     }
 
     // Called once after isFinished returns true

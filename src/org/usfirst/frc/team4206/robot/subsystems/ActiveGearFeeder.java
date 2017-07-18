@@ -4,17 +4,13 @@ import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- *
- */
+
 public class ActiveGearFeeder extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	public CANTalon activeMaster = new CANTalon(5);
 	public CANTalon activeSlave = new CANTalon(6);
-
-	private boolean isUp = true;
 	
 	public ActiveGearFeeder() {
 		//Change to Slave
@@ -36,37 +32,36 @@ public class ActiveGearFeeder extends Subsystem {
 		activeMaster.setF(0.006);
 		
 		//KEEP THESE REALLY LOW
-		activeMaster.setMotionMagicAcceleration(50);
-		activeMaster.setMotionMagicCruiseVelocity(50);
+		activeMaster.setMotionMagicAcceleration(75);
+		activeMaster.setMotionMagicCruiseVelocity(100);
 		//KEEP THESE REALLY LOW
 		
 		activeMaster.set(-0.04);
-		
-		
 	}
 	
 	public void armDown() {
-		activeMaster.set(-0.328);
-		isUp = false;
+		activeMaster.set(-0.33);
+		activeSlave.set(activeMaster.getDeviceID());
 	}
 	
 	public void armUp() {
 		activeMaster.set(-0.04);
-		isUp = true;
+		activeSlave.set(activeMaster.getDeviceID());
 	}
 	
 	public void setArm(double position) {
 		activeMaster.set(position);
 	}
 	
-	
 	public void resetArm() {
 		activeMaster.setEncPosition(0);
 	}
 	
-		
+	public void stop() {
+		activeMaster.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+		activeMaster.set(0);
+	}
 	
-
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());

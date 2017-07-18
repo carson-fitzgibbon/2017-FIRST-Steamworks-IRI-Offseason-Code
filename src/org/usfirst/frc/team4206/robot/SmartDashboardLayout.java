@@ -8,9 +8,6 @@ import org.usfirst.frc.team4206.robot.commands.auto.AutoLeftPeg;
 import org.usfirst.frc.team4206.robot.commands.auto.AutoRightPeg;
 import org.usfirst.frc.team4206.robot.commands.magicbuttons.IntakeGear;
 import org.usfirst.frc.team4206.robot.commands.magicbuttons.MagicButton;
-import org.usfirst.frc.team4206.robot.commands.visionauto.AutoCenterPegWithVision;
-import org.usfirst.frc.team4206.robot.commands.visionauto.AutoLeftPegWithVision;
-import org.usfirst.frc.team4206.robot.commands.visionauto.AutoRightPegWithVision;
 
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,9 +30,6 @@ public class SmartDashboardLayout {
 		SmartDashboard.putData("Center Peg", new AutoCenterPeg());
 		SmartDashboard.putData("Left Peg", new AutoLeftPeg());
 		SmartDashboard.putData("Right Peg", new AutoRightPeg());
-		SmartDashboard.putData("Center Peg With Vision", new AutoCenterPegWithVision());
-		SmartDashboard.putData("Left Peg With Vision", new AutoLeftPegWithVision());
-		SmartDashboard.putData("Right Peg With Vision", new AutoRightPegWithVision());
 		
 		
 		

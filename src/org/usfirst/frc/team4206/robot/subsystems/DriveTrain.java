@@ -6,6 +6,7 @@ import org.usfirst.frc.team4206.robot.commands.PlayerDrive;
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -54,10 +55,12 @@ public class DriveTrain extends Subsystem {
 	
 	public void MecanumDrive(double x, double y, double rotation, double gyroAngle) {
 		drive.mecanumDrive_Cartesian(x, y, rotation, gyroAngle);
+		Timer.delay(0.005);
 	}
 	
 	public void setTank(double powerleft, double powerright) {
 		drive.tankDrive(powerleft, powerright);
+		Timer.delay(0.01);
 	}
 	
 	public void MotionMagicDrive(double leftrot, double rightrot){
@@ -89,6 +92,7 @@ public class DriveTrain extends Subsystem {
 		frontLeft.set(leftrot);
 		frontRight.set(rightrot);
 		
+		Timer.delay(0.01);
 	}
 	
 	public void getClosedLoopError() {
@@ -109,8 +113,9 @@ public class DriveTrain extends Subsystem {
 		return Math.abs(MMError);
 	}
 	
-	public void ArcadeDrive(double x, double y) {
-		drive.arcadeDrive(y, x);
+	public void ArcadeDrive(double rotate, double move) {
+		drive.arcadeDrive(move, rotate);
+		Timer.delay(0.01);
 	}
 	
 	
@@ -121,7 +126,6 @@ public class DriveTrain extends Subsystem {
 	public void resetEncoders() {
 		frontLeft.setEncPosition(0);
 		frontRight.setEncPosition(0);
-		
 	}
 	
 	

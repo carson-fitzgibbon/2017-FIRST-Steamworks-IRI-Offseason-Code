@@ -11,14 +11,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4206.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4206.robot.commands.StopArm;
 import org.usfirst.frc.team4206.robot.subsystems.ActiveGearFeeder;
 import org.usfirst.frc.team4206.robot.subsystems.Climber;
 import org.usfirst.frc.team4206.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4206.robot.subsystems.ExampleSubsystem;
-import org.usfirst.frc.team4206.robot.subsystems.LEDS;
 import org.usfirst.frc.team4206.robot.subsystems.NavigationSensor;
 import org.usfirst.frc.team4206.robot.subsystems.Pneumatics;
 import org.usfirst.frc.team4206.robot.subsystems.Rollers;
+import org.usfirst.frc.team4206.robot.subsystems.Vision;
+import org.usfirst.frc.team4206.robot.commands.auto.AutoCenterPeg;
+import org.usfirst.frc.team4206.robot.commands.auto.AutoLeftPeg;
+import org.usfirst.frc.team4206.robot.commands.auto.AutoRightPeg;
+import org.usfirst.frc.team4206.robot.commands.auto.RedAutoLeftPeg;
+import org.usfirst.frc.team4206.robot.commands.auto.RedAutoRightPeg;
+import org.usfirst.frc.team4206.robot.commands.auto.TwoGearAuto;
+import org.usfirst.frc.team4206.robot.commands.auto.VisionTurnTest;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,10 +44,7 @@ public class Robot extends IterativeRobot {
 	public static final ActiveGearFeeder activegearfeeder = new ActiveGearFeeder();
 	public static final Rollers rollers = new Rollers();
 	public static final NavigationSensor navigationsensor = new NavigationSensor();
-	public static final SmartDashboardLayout smartdashboard = new SmartDashboardLayout();
-	public static final VisionProcessor visionprocessor = new VisionProcessor();
-	public static final LEDS leds = new LEDS();
-	
+	public static final Vision vision = new Vision();
 
 	public static OI oi;
 
@@ -49,8 +54,10 @@ public class Robot extends IterativeRobot {
 	Command AutoCenterPegWithVision;
 	Command AutoLeftPegWithVision;
 	Command AutoRightPegWithVision;
-
-
+	
+	Command autonomousCommand;
+	SendableChooser<Command> chooser = new SendableChooser<>();
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -61,8 +68,32 @@ public class Robot extends IterativeRobot {
 		
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
         camera.setResolution(480, 320);
+        camera.setExposureManual(0);
         
         navigationsensor.init();
+        vision.init();
+        
+		chooser.addDefault("Center Auto", new AutoCenterPeg());
+		chooser.addObject("Vision Test", new VisionTurnTest());
+		chooser.addObject("Left Auto", new AutoLeftPeg());
+		chooser.addObject("Left Vision", new AutoLeftPeg());
+		chooser.addObject("Right Auto", new AutoRightPeg());
+		chooser.addObject("Right Vision", new AutoRightPeg());
+		chooser.addObject("Red Left Peg", new RedAutoLeftPeg());
+		chooser.addObject("Red Right Peg", new RedAutoRightPeg());
+		chooser.addObject("Two Gear Auto", new TwoGearAuto());
+		
+		SmartDashboard.putData("EMERGENCY ARM STOP", new StopArm());
+		
+		SmartDashboard.putData("Auto mode", chooser);
+		/*
+        if (OI.Vision.get()) isVision = true;
+        if (OI.LeftPeg.get()) {
+        	if (OI.Vision.get()) 
+        } else if (OI.RightPeg.get()) {
+        	
+        }
+        */
 	}
 
 	/**
@@ -93,13 +124,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		if(Robot.oi.auto.getRawButton(1)) AutoRightPeg.start();
-		
-		else if (Robot.oi.auto.getRawButton(2)) AutoLeftPeg.start();
-		
-		else if (Robot.oi.auto.getRawButton(1)) AutoCenterPeg.start();
-		
-		else AutoCenterPeg.start();
+		chooser.getSelected().start();
 	}
 
 	/**
@@ -127,7 +152,6 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
-		smartdashboard.initSmartDashboard();
 	}
 
 	/**

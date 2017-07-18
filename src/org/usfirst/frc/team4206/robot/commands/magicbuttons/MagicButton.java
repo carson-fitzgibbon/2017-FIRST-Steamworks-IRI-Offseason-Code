@@ -16,39 +16,30 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class MagicButton extends CommandGroup {
 
 	private double _distance;
+	private double _timeout;
 	
 	public MagicButton() {
 		this._distance= 1;
 	}
 	
-    public MagicButton(double distance) {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
+	public MagicButton(double distance){
+		this(distance, 1.5 );
+	}
+	
+    public MagicButton(double distance, double timeout) {
     	requires(Robot.drivetrain);
     	requires(Robot.activegearfeeder);
     	requires(Robot.rollers);
     	
     	_distance = distance;
+    	_timeout = timeout;
 
-    	addParallel(new ExhaustRollers(), 1.5);
-    	addParallel(new MotionMagic(_distance, _distance, 1.5));
-    	addSequential(new ActiveArmDown(), 2);
+    	
+    	addParallel(new ExhaustRollers(), 1);
+    	addParallel(new MotionMagic(distance, distance, timeout));
+    	addSequential(new ActiveArmDown(), 1);
     	addSequential(new StopRollers());
-    	addSequential(new ActiveArmUp(), 1.25);
+    	addSequential(new ActiveArmUp(), 0.75);
 
 
 

@@ -2,6 +2,7 @@ package org.usfirst.frc.team4206.robot.commands.auto;
 
 import org.usfirst.frc.team4206.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -17,7 +18,7 @@ public class AutoDriveStraight extends Command {
     	requires(Robot.navigationsensor);
     	this.setTimeout(seconds);
 
-    	power = _power;
+    	_power = power;
     	kP = 0.02;
     	
     }
@@ -27,7 +28,7 @@ public class AutoDriveStraight extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.ArcadeDrive(0.5, Robot.navigationsensor.getGyro()*kP);
+    	Robot.drivetrain.ArcadeDrive(_power, Robot.navigationsensor.getGyro()*kP);
     }
 
     // Make this return true when this Command no longer needs to run execute()

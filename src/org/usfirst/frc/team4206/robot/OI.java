@@ -4,12 +4,15 @@ package org.usfirst.frc.team4206.robot;
 import org.usfirst.frc.team4206.robot.commands.ActiveArmDown;
 import org.usfirst.frc.team4206.robot.commands.ActiveArmUp;
 import org.usfirst.frc.team4206.robot.commands.EndGameClimb;
+import org.usfirst.frc.team4206.robot.commands.ResetArmEncoder;
 import org.usfirst.frc.team4206.robot.commands.StopRollers;
 import org.usfirst.frc.team4206.robot.commands.ToggleFeeder;
 import org.usfirst.frc.team4206.robot.commands.auto.AutoCenterPeg;
 import org.usfirst.frc.team4206.robot.commands.auto.AutoLeftPeg;
+import org.usfirst.frc.team4206.robot.commands.auto.AutoRightPeg;
 import org.usfirst.frc.team4206.robot.commands.auto.AutoTurn;
 import org.usfirst.frc.team4206.robot.commands.auto.MotionMagic;
+import org.usfirst.frc.team4206.robot.commands.auto.TwoGearAuto;
 import org.usfirst.frc.team4206.robot.commands.magicbuttons.IntakeGear;
 import org.usfirst.frc.team4206.robot.commands.magicbuttons.MagicButton;
 
@@ -30,26 +33,39 @@ public class OI {
 	public static Joystick operator = new Joystick(1); 
 	public static Joystick auto = new Joystick(2);
 	
-	Button A = new JoystickButton(driver, 1);
-	Button B = new JoystickButton(driver, 2);
-	Button X = new JoystickButton(driver, 3);
-	Button Y = new JoystickButton(driver, 4);
-	Button LB = new JoystickButton(driver, 5);
-	Button RB = new JoystickButton(driver, 6);
-	Button Start = new JoystickButton(driver, 7);// DO NOT USE BECUASE IT IS USED IN PLAYERDRIVE COMMAND
-	Button Select = new JoystickButton(driver, 8);
+	static Button A = new JoystickButton(driver, 1);
+	static Button B = new JoystickButton(driver, 2);
+	static Button X = new JoystickButton(driver, 3);
+	static Button Y = new JoystickButton(driver, 4);
+	static Button LB = new JoystickButton(driver, 5);
+	static Button RB = new JoystickButton(driver, 6);
+	static Button Start = new JoystickButton(driver, 7);// DO NOT USE BECUASE IT IS USED IN PLAYERDRIVE COMMAND
+	static Button Select = new JoystickButton(driver, 8);
 	
+	//DO NOT USE RIGHT TRIGGER BECUASE IT MAKES THE ROBOT CLIMB
 	
-	Button LeftPeg = new JoystickButton(auto, 1);
-	Button RightPeg = new JoystickButton(auto, 3);
-	Button Center = new JoystickButton(auto, 2);
+	static Button LeftPeg = new JoystickButton(auto, 1);
+	static Button RightPeg = new JoystickButton(auto, 2);
+	static Button Vision = new JoystickButton(auto, 3);
 	
 	public OI() {
 		
-		A.whileHeld(new EndGameClimb());
-		B.whileHeld(new MagicButton());
+
+		A.whenPressed(new MagicButton(1));
+		B.whenPressed(new IntakeGear());
 		RB.whenPressed(new ToggleFeeder());
 		Select.whenPressed(new StopRollers());
+		X.whenPressed(new ResetArmEncoder());
+		//LB.whileHeld(new ToggleCompressor());
+		//Y.whenPressed(new TwoGearAuto());
+		Y.whenPressed(new ActiveArmUp());
+			
+		/*
+		
+		B.whenPressed(new AutoLeftPeg(false));
+		X.whenPressed(new AutoRightPeg(false));
+		*/
+		
 		
 		
 	}

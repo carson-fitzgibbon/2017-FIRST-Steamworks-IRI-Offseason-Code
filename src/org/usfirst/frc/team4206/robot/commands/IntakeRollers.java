@@ -15,7 +15,7 @@ public class IntakeRollers extends Command {
     public IntakeRollers() {
     	requires(Robot.rollers);
     	
-    	this.setTimeout(2);
+    	this.setTimeout(0.5);
 
     }
 
@@ -27,11 +27,12 @@ public class IntakeRollers extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.rollers.intake();
+    	System.out.println(Robot.rollers.getRollerCurrent());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(Robot.rollers.getRollerCurrent() >= 6) return true;
+    	if (this.isTimedOut() & Robot.rollers.getRollerCurrent() >= 10) return true;
     	else return false;
 
     }

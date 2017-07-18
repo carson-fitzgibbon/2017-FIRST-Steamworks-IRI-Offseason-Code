@@ -16,83 +16,49 @@ public class MotionMagic extends Command {
 
 	private double _setleft;
 	private double _setright;
-	private double _setleftvelocity;
-	private double _setrightvelocity;
-	private double _setleftacc;
-	private double _setrightacc;
 	
 	public MotionMagic(double setleft, double setright, double timeout) {
-		this(setleft, setright, 410, 400, 154, 150, timeout);
-	}
-	
-	public MotionMagic(double setleft, double setright, double leftvel, double rightvel, double timeout) {
-		this(setleft, setright, leftvel, rightvel, 154, 150, timeout);
-	}
-	
-	
-    public MotionMagic(double setleft, double setright, double leftvel, double rightvel, double leftacc, double rightacc, double timeout) {
+		
+		this.setTimeout(timeout);
+		
+		_setleft = setleft;
+		_setright = setright;
+		
+	}	
 
-    	
-    	requires(Robot.drivetrain);
-    	this.setTimeout(timeout);
-    	_setleft = setleft;
-    	_setright = setright;
-    	_setleftvelocity = leftvel;
-    	_setrightvelocity = rightvel;
-    	_setrightacc = rightacc;
-    	_setleftacc = leftacc;
-    	
-    }
-    
-    // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.drivetrain.resetEncoders();
  
     	Robot.drivetrain.rearLeft.changeControlMode(CANTalon.TalonControlMode.Follower);
-		Robot.drivetrain.rearLeft.set(Robot.drivetrain.frontLeft.getDeviceID());
+
 		/* first choose the sensor */
 		Robot.drivetrain.frontLeft.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 		Robot.drivetrain.frontLeft.reverseSensor(true);
-		// Robot.drivetrain.frontLeft.configEncoderCodesPerRev(XXX), // if using
-		// FeedbackDevice.QuadEncoder
-		// Robot.drivetrain.frontLeft.configPotentiometerTurns(XXX), // if using
-		// FeedbackDevice.AnalogEncoder or AnalogPot
-
-		/* set the peak and nominal outputs, 12V means full */
 		Robot.drivetrain.frontLeft.configNominalOutputVoltage(+0.0f, -0.0f);
 		Robot.drivetrain.frontLeft.configPeakOutputVoltage(+12.0f, -12.0f);
-		/* set closed loop gains in slot0 - see documentation */
 		Robot.drivetrain.frontLeft.setProfile(0);
 		//Robot.drivetrain.frontLeft.setF(0);
 		//Robot.drivetrain.frontLeft.setP(0);
 		//Robot.drivetrain.frontLeft.setI(0);
 		//Robot.drivetrain.frontLeft.setD(0);
 		/* set acceleration and vcruise velocity - see documentation */
-		Robot.drivetrain.frontLeft.setMotionMagicCruiseVelocity(_setleftvelocity); //default = 410
-		Robot.drivetrain.frontLeft.setMotionMagicAcceleration(_setleftacc); //default = 154
+		Robot.drivetrain.frontLeft.setMotionMagicCruiseVelocity(410); //default = 410
+		Robot.drivetrain.frontLeft.setMotionMagicAcceleration(154); //default = 154
 		
 		Robot.drivetrain.rearRight.changeControlMode(CANTalon.TalonControlMode.Follower);
-		Robot.drivetrain.rearRight.set(Robot.drivetrain.frontRight.getDeviceID());
+
 		/* first choose the sensor */
 		Robot.drivetrain.frontRight.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 		Robot.drivetrain.frontRight.reverseOutput(true);
-		// Robot.drivetrain.frontRight.configEncoderCodesPerRev(XXX), // if using
-		// FeedbackDevice.QuadEncoder
-		// Robot.drivetrain.frontRight.configPotentiometerTurns(XXX), // if using
-		// FeedbackDevice.AnalogEncoder or AnalogPot
-
-		/* set the peak and nominal outputs, 12V means full */
 		Robot.drivetrain.frontRight.configNominalOutputVoltage(+0.0f, -0.0f);
 		Robot.drivetrain.frontRight.configPeakOutputVoltage(+12.0f, -12.0f);
-		/* set closed loop gains in slot0 - see documentation */
 		Robot.drivetrain.frontRight.setProfile(0);
 		//Robot.drivetrain.frontRight.setF(0);
 		//Robot.drivetrain.frontRight.setP(0);
 		//Robot.drivetrain.frontRight.setI(0);
 		//Robot.drivetrain.frontRight.setD(0);
-		/* set acceleration and vcruise velocity - see documentation */
-		Robot.drivetrain.frontRight.setMotionMagicCruiseVelocity(_setrightvelocity); //default = 400
-		Robot.drivetrain.frontRight.setMotionMagicAcceleration(_setrightacc);//default = 150
+		Robot.drivetrain.frontRight.setMotionMagicCruiseVelocity(400); //default = 400
+		Robot.drivetrain.frontRight.setMotionMagicAcceleration(150);//default = 150
 		Robot.drivetrain.frontLeft.changeControlMode(TalonControlMode.MotionMagic);
 		Robot.drivetrain.frontRight.changeControlMode(TalonControlMode.MotionMagic);
 		Robot.drivetrain.frontLeft.set(_setleft); 
@@ -101,14 +67,19 @@ public class MotionMagic extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+		Robot.drivetrain.rearLeft.set(Robot.drivetrain.frontLeft.getDeviceID());
+		Robot.drivetrain.rearRight.set(Robot.drivetrain.frontRight.getDeviceID());
     	Robot.drivetrain.frontLeft.set(_setleft); 
 		Robot.drivetrain.frontRight.set(_setright); 
+		
+		System.out.println(Robot.drivetrain.frontLeft.getClosedLoopError());
+		
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if(Robot.drivetrain.getMotionMagicError(Robot.drivetrain.frontRight) < 8 || this.isTimedOut() ) return true;
-        else return false;
+        if(this.isTimedOut()) return true;
+        return false;
     }
 
     // Called once after isFinished returns true

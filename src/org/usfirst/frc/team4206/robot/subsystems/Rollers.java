@@ -14,7 +14,7 @@ public class Rollers extends Subsystem {
     // here. Call these from Commands.
 	public CANTalon activeRoller = new CANTalon(9);
 	
-	public PowerDistributionPanel pdp = new PowerDistributionPanel();
+	public static PowerDistributionPanel pdp = new PowerDistributionPanel();
 	
 	public void intake() {
 		activeRoller.set(0.8);
