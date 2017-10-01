@@ -4,9 +4,7 @@ import org.usfirst.frc.team4206.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
+
 public class PrintEncoders extends Command {
 
     public PrintEncoders() {

@@ -28,7 +28,7 @@ public class StopArm extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        if (Rollers.pdp.getCurrent(15) > 30 | this.isTimedOut()) return true;
+        if (Robot.pdp.getCurrent(15) > 30 | this.isTimedOut()) return true;
         return false;
     }
 

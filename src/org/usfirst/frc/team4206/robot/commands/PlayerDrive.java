@@ -5,9 +5,7 @@ import org.usfirst.frc.team4206.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
+
 public class PlayerDrive extends Command {
 
 	private boolean reverse = false, hold = false;

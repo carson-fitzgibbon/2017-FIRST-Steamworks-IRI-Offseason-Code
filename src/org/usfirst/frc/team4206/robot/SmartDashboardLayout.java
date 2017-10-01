@@ -8,6 +8,7 @@ import org.usfirst.frc.team4206.robot.commands.auto.AutoLeftPeg;
 import org.usfirst.frc.team4206.robot.commands.auto.AutoRightPeg;
 import org.usfirst.frc.team4206.robot.commands.magicbuttons.IntakeGear;
 import org.usfirst.frc.team4206.robot.commands.magicbuttons.MagicButton;
+import org.usfirst.frc.team4206.robot.subsystems.Rollers;
 
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -45,17 +46,13 @@ public class SmartDashboardLayout {
 		SmartDashboard.putNumber("Active Feeder Roller Current", Robot.rollers.getRollerCurrent());
 		
 		//PDP
-		SmartDashboard.putNumber("Total Energy (Watts)", Robot.rollers.pdp.getTotalPower());
+		SmartDashboard.putNumber("Total Energy (Watts)", Robot.pdp.getTotalPower());
 		
 		//Climber
 		SmartDashboard.putNumber("Climber Current", Robot.climber.climberMaster.getOutputCurrent());
 		
 		//Gyro
 		SmartDashboard.putNumber("Gyro Angle", Robot.navigationsensor.getGyro());
-		
-		//Passive Feeder
-		
-		//Pneumatics - to be added
 		
 	}
 

@@ -13,13 +13,9 @@ public class Climber extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-<<<<<<< HEAD
 	public CANTalon climberMaster = new CANTalon(3);
 	public CANTalon climberSlave = new CANTalon(4);
-=======
-	public CANTalon climberMaster = new CANTalon(5);
-	public CANTalon climberSlave = new CANTalon(6);
->>>>>>> 5eb174f3bf9d778fb45d14b25299e01c2d392972
+
 	
 	public Climber() {
 		climberSlave.changeControlMode(CANTalon.TalonControlMode.Follower);

@@ -1,13 +1,9 @@
 package org.usfirst.frc.team4206.robot.commands.auto;
 
-import org.usfirst.frc.team4206.robot.commands.ResetGyro;
 import org.usfirst.frc.team4206.robot.commands.magicbuttons.MagicButton;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- *
- */
 public class AutoCenterPeg extends CommandGroup {
 
     public AutoCenterPeg() {
@@ -28,18 +24,12 @@ public class AutoCenterPeg extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-<<<<<<< HEAD
     	addSequential(new MotionMagic(-4.6, -4.6, 3));
     	//addSequential(new ResetGyro());
     	//if (!useVision) addSequential(new AutoDriveStraight(-0.5, 2.75));
     	//else addSequential(new AutoVision());
     	//addSequential(new AutoDriveStraight(-0.4, 3));
     	addSequential(new MagicButton(1));
-=======
-    	//addSequential(new MotionMagic(-4.6, -4.6));
-    	addSequential(new ResetGyro());
-    	addSequential(new AutoDriveStraight(-0.5, 2.75));
-    	addSequential(new MagicButton());
->>>>>>> 5eb174f3bf9d778fb45d14b25299e01c2d392972
+
     }
 }

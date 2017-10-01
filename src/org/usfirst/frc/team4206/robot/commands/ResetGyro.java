@@ -4,9 +4,6 @@ import org.usfirst.frc.team4206.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
 public class ResetGyro extends Command {
 
     public ResetGyro() {

@@ -32,13 +32,8 @@ public class IntakeRollers extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-<<<<<<< HEAD
     	if (this.isTimedOut() & Robot.rollers.getRollerCurrent() >= 10) return true;
-=======
-    	if(Robot.rollers.getRollerCurrent() >= 6) return true;
->>>>>>> 5eb174f3bf9d778fb45d14b25299e01c2d392972
-    	else return false;
-
+		return false;
     }
 
     // Called once after isFinished returns true

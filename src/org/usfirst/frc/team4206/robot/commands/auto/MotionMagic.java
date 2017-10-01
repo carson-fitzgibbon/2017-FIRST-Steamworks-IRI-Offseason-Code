@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4206.robot.commands.auto;
 
 import org.usfirst.frc.team4206.robot.Robot;
-import org.usfirst.frc.team4206.robot.subsystems.DriveTrain;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;

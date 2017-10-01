@@ -1,18 +1,8 @@
 package org.usfirst.frc.team4206.robot;
 
-
-import org.usfirst.frc.team4206.robot.commands.ActiveArmDown;
 import org.usfirst.frc.team4206.robot.commands.ActiveArmUp;
-import org.usfirst.frc.team4206.robot.commands.EndGameClimb;
-import org.usfirst.frc.team4206.robot.commands.ResetArmEncoder;
+import org.usfirst.frc.team4206.robot.commands.StopArm;
 import org.usfirst.frc.team4206.robot.commands.StopRollers;
-import org.usfirst.frc.team4206.robot.commands.ToggleFeeder;
-import org.usfirst.frc.team4206.robot.commands.auto.AutoCenterPeg;
-import org.usfirst.frc.team4206.robot.commands.auto.AutoLeftPeg;
-import org.usfirst.frc.team4206.robot.commands.auto.AutoRightPeg;
-import org.usfirst.frc.team4206.robot.commands.auto.AutoTurn;
-import org.usfirst.frc.team4206.robot.commands.auto.MotionMagic;
-import org.usfirst.frc.team4206.robot.commands.auto.TwoGearAuto;
 import org.usfirst.frc.team4206.robot.commands.magicbuttons.IntakeGear;
 import org.usfirst.frc.team4206.robot.commands.magicbuttons.MagicButton;
 
@@ -49,27 +39,11 @@ public class OI {
 	static Button Vision = new JoystickButton(auto, 3);
 	
 	public OI() {
-		
-
 		A.whenPressed(new MagicButton(1));
 		B.whenPressed(new IntakeGear());
-		RB.whenPressed(new ToggleFeeder());
 		Select.whenPressed(new StopRollers());
-		X.whenPressed(new ResetArmEncoder());
-		//LB.whileHeld(new ToggleCompressor());
+		X.whenPressed(new StopArm());
 		//Y.whenPressed(new TwoGearAuto());
 		Y.whenPressed(new ActiveArmUp());
-			
-		/*
-		
-		B.whenPressed(new AutoLeftPeg(false));
-		X.whenPressed(new AutoRightPeg(false));
-		*/
-		
-		
-		
 	}
-	
-	
-	
 }
